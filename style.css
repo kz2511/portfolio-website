@@ -1,4 +1,4 @@
-/* Style inputs with type="text", select elements, and textareas */
+/* Style inputs with type="text", select elements and textareas */
 input[type=text], select, textarea {
     width: 100%; /* Full width */
     padding: 0px; /* Some padding */
@@ -7,8 +7,8 @@ input[type=text], select, textarea {
     box-sizing: border-box; /* Make sure that padding and width stays in place */
     margin-top: 0px; /* Add a top margin */
     margin-bottom: 0px; /* Bottom margin */
-    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
-}
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  }
 
 /* Style the submit button with a specific background color etc */
 input[type=submit] {
@@ -18,32 +18,30 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
+  }
 
 /* When moving the mouse over the submit button, add a darker green color */
 input[type=submit]:hover {
     background-color: #45a049;
-}
+  }
 
 /* Add a background color and some padding around the form */
 .container {
     border-radius: 5px;
     background-color: #f5f5dc;
     padding: 20px;
-}
+  }
 
-/* Custom text styling */
 .custom-text {
     font-size: 20px;
     color: red;
 }
 
-/* Code block styling */
 code {
     background-color: #f5f5dc !important;
     font-family: 'Source Code Pro'!important;
     font-size: 16px !important;
-    color: #d47f17 !important;
+    color: darkorange !important;
     padding: 2px !important;
     border-radius: 4px !important;
 }
@@ -52,9 +50,3 @@ code {
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {visibility: hidden;}
-
-/* Streamlit sidebar and header customizations */
-/* Add your Streamlit sidebar and header customizations here */
-
-/* Media queries for responsiveness */
-/* Add your media queries here */
