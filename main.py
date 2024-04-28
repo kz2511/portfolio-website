@@ -12,57 +12,46 @@ st.set_page_config(page_title="Kunal Zaveri", page_icon="desktop_computer", layo
 st.markdown('<style>' + open('style.css').read() + '</style>', unsafe_allow_html=True)
 
 
-def load_lottieurl(url):
-    r = requests.get(url)
-    return None if r.status_code != 200 else r.json()
-
-
-def render_lottie(url, width, height):
-    return f"""
-    <html>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
-    </head>
-    <body>
-        <div id="lottie-container" style="width: {width}; height: {height};"></div>
-        <script>
-            var animation = lottie.loadAnimation({{
-                container: document.getElementById('lottie-container'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: '{url}'
-            }});
-            animation.setRendererSettings({{
-                preserveAspectRatio: 'xMidYMid slice',
-                clearCanvas: true,
-                progressiveLoad: false,
-                hideOnTransparent: true
-            }});
-        </script>
-    </body>
-    </html>
-    """
+# def load_lottieurl(url):
+#     r = requests.get(url)
+#     return None if r.status_code != 200 else r.json()
+#
+#
+# def render_lottie(url, width, height):
+#     return f"""
+#     <html>
+#     <head>
+#         <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
+#     </head>
+#     <body>
+#         <div id="lottie-container" style="width: {width}; height: {height};"></div>
+#         <script>
+#             var animation = lottie.loadAnimation({{
+#                 container: document.getElementById('lottie-container'),
+#                 renderer: 'svg',
+#                 loop: true,
+#                 autoplay: true,
+#                 path: '{url}'
+#             }});
+#             animation.setRendererSettings({{
+#                 preserveAspectRatio: 'xMidYMid slice',
+#                 clearCanvas: true,
+#                 progressiveLoad: false,
+#                 hideOnTransparent: true
+#             }});
+#         </script>
+#     </body>
+#     </html>
+#     """
 
 
 # Use local CSS
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-
-local_css("style/style.css")
-
-footer = """
-footer{
-    visibility:visible;
-}
-footer:after{
-    content:'Copyright © 2024 Kunal Zaveri';
-    position:relative;
-    color:black;
-}
-"""
+    # def local_css(file_name):
+    #     with open(file_name) as f:
+    #         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    #
+    #
+    # local_css("style/style.css")
 
 
 # PDF functions
