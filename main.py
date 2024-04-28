@@ -14,13 +14,11 @@ st.markdown('<style>' + open('style.css').read() + '</style>', unsafe_allow_html
 
 def load_lottieurl(url):
     r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
+    return None if r.status_code != 200 else r.json()
 
 
 def render_lottie(url, width, height):
-    lottie_html = f"""
+    return f"""
     <html>
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
@@ -45,7 +43,6 @@ def render_lottie(url, width, height):
     </body>
     </html>
     """
-    return lottie_html
 
 
 # Use local CSS
@@ -61,7 +58,7 @@ footer{
     visibility:visible;
 }
 footer:after{
-    content:'Copyright © 2023 Harry Chang';
+    content:'Copyright © 2024 Kunal Zaveri';
     position:relative;
     color:black;
 }
@@ -72,13 +69,12 @@ footer:after{
 def show_pdf(file_path):
     with open(file_path, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="1000" height="900" type="application/pdf"></iframe>'
+    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" width="1000" height="900"></embed>'
     st.markdown(pdf_display, unsafe_allow_html=True)
 
 
 def pdf_link(pdf_url, link_text="Click here to view PDF"):
-    href = f'<a href="{pdf_url}" target="_blank">{link_text}</a>'
-    return href
+    return f'<a href="{pdf_url}" target="_blank">{link_text}</a>'
 
 
 img_utown = Image.open("IMG_20230105_234243_827.jpg")
@@ -99,13 +95,11 @@ def social_icons(width=24, height=24, **kwargs):
 
     icons_html = ""
     for name, url in kwargs.items():
-        icon_src = {
+        if icon_src := {
             "linkedin": "https://img.icons8.com/ios-filled/100/ff8c00/linkedin.png",
             "github": "https://img.icons8.com/ios-filled/100/ff8c00/github--v2.png",
-            "email": "https://img.icons8.com/ios-filled/100/ff8c00/filled-message.png"
-        }.get(name.lower())
-
-        if icon_src:
+            "email": "https://img.icons8.com/ios-filled/100/ff8c00/filled-message.png",
+        }.get(name.lower()):
             icons_html += icon_template.format(url=url, icon_src=icon_src, alt_text=name.capitalize(), width=width,
                                                height=height)
 
@@ -140,25 +134,11 @@ def txt3(a, b):
 def txt4(a, b):
     col1, col2 = st.columns([1.5, 2])
     with col1:
-        st.markdown(f'<p style="font-size: 25px; color: white;">{a}</p>', unsafe_allow_html=True)
+        st.markdown(f'<p style="font-size: 25px; color: black;">{a}</p>', unsafe_allow_html=True)
     with col2:  # can't seem to change color besides green
         st.markdown(f'<p style="font-size: 25px; color: red;"><code>{b}</code></p>', unsafe_allow_html=True)
 
 
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    st.markdown(
-        f"""
-    <style>
-    .stApp {{
-        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
-        background-size: cover
-    }}
-    </style>
-    """,
-        unsafe_allow_html=True
-    )
 
 
 # Sidebar: If using streamlit_option_menu
@@ -203,7 +183,6 @@ st.write('<style>div.block-container{padding-top:0rem;}</style>', unsafe_allow_h
 st.title("Kunal Zaveri")
 # Create header
 if choose == "About Me":
-    # aboutme.createPage()
     with st.container():
         left_column, middle_column, right_column = st.columns((1, 0.2, 0.5))
         with left_column:
@@ -225,9 +204,9 @@ elif choose == "Experience":
     # st.write("---")
     st.header("Experience")
     with st.container():
-        image_column, text_column = st.columns((1, 5))
+        image_column, text_column = st.columns((2, 4))
         with image_column:
-            st.image(img_groundup)
+            st.image(img_groundup, use_column_width='always')
         with text_column:
             st.subheader("Associate Software Engineer(Python), [Inexture Solutions](https://www.inexture.com/)")
             st.write("*July 2022 to Present*")
@@ -264,14 +243,13 @@ elif choose == "Technical Skills":
     txt3("Machine Learning Frameworks", "`Numpy`, `Pandas`, `Scikit-Learn`, `TensorFlow`")
     txt3("Task Management Tools", "`Asana`, `Slack`, `Jira`, `Trello` ")
 
-# Create section for Education
-# st.write("---")
+
 elif choose == "Education":
     st.header("Education")
     with st.container():
-        image_column, text_column = st.columns((1, 2.5))
+        image_column, text_column = st.columns((2, 4))
         with image_column:
-            st.image(img_poc)
+            st.image(img_poc, use_column_width='always')
         with text_column:
             st.subheader(
                 "Bachelor of Engineering in Information Technology, [Ganpat University (GUNI), India](https://www.ganpatuniversity.ac.in/)")
@@ -284,13 +262,11 @@ elif choose == "Education":
 
 
 elif choose == "Projects":
-    # Create section for Projects
-    # st.write("---")
     st.header("Projects")
     with st.container():
         text_column, image_column = st.columns((3, 1))
         with text_column:
-            st.header("Words Processing Scraping")
+            st.header("**1) Language Data Extraction**")
             st.markdown("""
                 - This project involves scraping data from two websites. We extract words from one site and compare them with content from the other. If there's a match, we create a docx file mirroring the original website's structure, font, and layout. We also check if existing docx sentences match scraped words, adding matching sentences to the new docx. Additionally, we convert any phonetic letters in scraped words to their normal form for readability.
             """)
@@ -308,7 +284,7 @@ elif choose == "Projects":
     with st.container():
         text_column, image_column = st.columns((3, 1))
         with text_column:
-            st.header("Scrapping Tool")
+            st.header("**2) Data Extraction Tool**")
             st.markdown("""
                 - This advanced system extracts valuable data from diverse websites, utilizing Scrapy for structured information retrieval and Selenium for dynamic content capture. The scraped data seamlessly integrates into an ElasticSearch-based search engine through Django Rest Framework. The project stands as a testament to my skills in web scraping, automation, and building efficient search solutions, providing users with a refined and efficient experience in accessing and navigating vast amounts of data.
              """)
@@ -326,7 +302,7 @@ elif choose == "Projects":
     with st.container():
         text_column, image_column = st.columns((3, 1))
         with text_column:
-            st.header("E-Commerce Web Scrapping")
+            st.header("**3) Online Marketplace Data Extraction**")
             st.markdown("""
                 - In this project, our objective was to scrape product numbers from various E-commerce websites using Scrapy and Selenium. The task involved extracting data for specific URLs provided. When a user pastes a URL from the target site, the information for that particular product is scraped and made visible to the end user. Additionally, we implemented an API to send the scraping response, ensuring that the end user can view this information seamlessly
                """)
@@ -343,7 +319,7 @@ elif choose == "Projects":
     with st.container():
         text_column, image_column = st.columns((3, 1))
         with text_column:
-            st.header("Iron Depot Scrapping")
+            st.header("**4)Scrap Metal Yard Harvesting**")
             st.markdown("""
                 - In this project, I utilized Python, Scrapy, and Selenium to extract data from Facebook and various other sites. I developed a PostgreSQL pipeline to efficiently store and update the extensive data. Implemented a mechanism to drop incomplete data lacking essential fields. Demonstrates expertise in large-scale data extraction, storage, and maintenance.
                """)
@@ -357,6 +333,8 @@ elif choose == "Projects":
                    - To ensure ease of future modifications, I've structured the project so that if anything changes on the website, the client only needs to modify one section of the code, and the code will run smoothly again
                 """)
             st.write("*Technology Used:-*  Scrapy, Selenium, AWS, Spidermon")
+
+
 
 elif choose == "Resume":
     resume_url = "https://drive.google.com/file/d/1-sTLi33kFAI4OSPCZumLV_Bw99_pzwHR/view?usp=sharing"
@@ -388,13 +366,11 @@ elif choose == "Contact":
 
         icons_html = ""
         for name, url in kwargs.items():
-            icon_src = {
-                "linkedin": "https://cdn-icons-png.flaticon.com/512/174/174857.png",
-                "github": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
-                "email": "https://cdn-icons-png.flaticon.com/512/561/561127.png"
-            }.get(name.lower())
-
-            if icon_src:
+            if icon_src := dict(
+                    linkedin="https://cdn-icons-png.flaticon.com/512/174/174857.png",
+                    github="https://cdn-icons-png.flaticon.com/512/25/25231.png",
+                    email="https://cdn-icons-png.flaticon.com/512/561/561127.png",
+            ).get(name.lower()):
                 icons_html += icon_template.format(url=url, icon_src=icon_src, alt_text=name.capitalize(), width=width,
                                                    height=height)
 
