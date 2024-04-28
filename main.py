@@ -5,6 +5,8 @@ import base64
 from streamlit_extras.mention import mention
 import requests
 
+
+
 # Set page title
 st.set_page_config(page_title="Kunal Zaveri", page_icon="desktop_computer", layout="wide", initial_sidebar_state="auto")
 
@@ -60,7 +62,6 @@ def show_pdf(file_path):
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
     pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" width="1000" height="900"></embed>'
     st.markdown(pdf_display, unsafe_allow_html=True)
-
 
 def pdf_link(pdf_url, link_text="Click here to view PDF"):
     return f'<a href="{pdf_url}" target="_blank">{link_text}</a>'
