@@ -14,37 +14,37 @@ st.set_page_config(page_title="Kunal Zaveri", page_icon="desktop_computer", layo
 st.markdown('<style>' + open('style.css').read() + '</style>', unsafe_allow_html=True)
 
 
-# def load_lottieurl(url):
-#     r = requests.get(url)
-#     return None if r.status_code != 200 else r.json()
-#
-#
-# def render_lottie(url, width, height):
-#     return f"""
-#     <html>
-#     <head>
-#         <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
-#     </head>
-#     <body>
-#         <div id="lottie-container" style="width: {width}; height: {height};"></div>
-#         <script>
-#             var animation = lottie.loadAnimation({{
-#                 container: document.getElementById('lottie-container'),
-#                 renderer: 'svg',
-#                 loop: true,
-#                 autoplay: true,
-#                 path: '{url}'
-#             }});
-#             animation.setRendererSettings({{
-#                 preserveAspectRatio: 'xMidYMid slice',
-#                 clearCanvas: true,
-#                 progressiveLoad: false,
-#                 hideOnTransparent: true
-#             }});
-#         </script>
-#     </body>
-#     </html>
-#     """
+def load_lottieurl(url):
+    r = requests.get(url)
+    return None if r.status_code != 200 else r.json()
+
+
+def render_lottie(url, width, height):
+    return f"""
+    <html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
+    </head>
+    <body>
+        <div id="lottie-container" style="width: {width}; height: {height};"></div>
+        <script>
+            var animation = lottie.loadAnimation({{
+                container: document.getElementById('lottie-container'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: '{url}'
+            }});
+            animation.setRendererSettings({{
+                preserveAspectRatio: 'xMidYMid slice',
+                clearCanvas: true,
+                progressiveLoad: false,
+                hideOnTransparent: true
+            }});
+        </script>
+    </body>
+    </html>
+    """
 
 
 # Use local CSS
@@ -220,6 +220,8 @@ elif choose == "Technical Skills":
     # st.write("---")
     st.header("Technical Skills")
     txt3("Programming Languages", "`Python`, `SQL`")
+    txt3("Web Frameworks", "`Django`, `DRF`, `Flask`")
+    txt3 ('Web Scrapping Frameworks', "`Scrapy`, `Selenium`, `BeautifulSoup`, `Playwright`")
     txt3("Data Visualization",
          "`ggplot2`, `matplotlib`, `seaborn`, `Plotly`,`Tableau`, `Power BI`, `Google Data Studio`")
     txt3("Database Systems",
@@ -229,7 +231,8 @@ elif choose == "Technical Skills":
     txt3("Version Control", "`Git`, `Docker`")
     txt3("Design and Front-end Development", "`HTML`, `CSS`, `Streamlit`")
     txt3("Data Science Techniques",
-         "`Regression`, `Clustering`, `Association Rules Mining`, `Random Forest`, `Decison Trees`, `Sentiment Analysis`")
+         "`Regression`, `Clustering`, `Association Rules Mining`, `Random Forest`, `Decison Trees`, `Sentiment "
+         "Analysis`")
     txt3("Machine Learning Frameworks", "`Numpy`, `Pandas`, `Scikit-Learn`, `TensorFlow`")
     txt3("Task Management Tools", "`Asana`, `Slack`, `Jira`, `Trello` ")
 
