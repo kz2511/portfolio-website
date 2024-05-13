@@ -46,14 +46,12 @@ def render_lottie(url, width, height):
     </html>
     """
 
+    # Use local CSS
+    def local_css(file_name):
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Use local CSS
-    # def local_css(file_name):
-    #     with open(file_name) as f:
-    #         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    #
-    #
-    # local_css("style/style.css")
+    local_css("style/style.css")
 
 
 # PDF functions
@@ -63,6 +61,7 @@ def show_pdf(file_path):
     pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" type="application/pdf" width="1000" height="900"></embed>'
     st.markdown(pdf_display, unsafe_allow_html=True)
 
+
 def pdf_link(pdf_url, link_text="Click here to view PDF"):
     return f'<a href="{pdf_url}" target="_blank">{link_text}</a>'
 
@@ -70,7 +69,7 @@ def pdf_link(pdf_url, link_text="Click here to view PDF"):
 img_utown = Image.open("IMG_20230105_234243_827.jpg")
 img_lh = Image.open("IMG_20240119_213657_223 (1).jpg")
 img_poc = Image.open("images.jpg")
-img_groundup = Image.open("download-removebg-preview.png")
+img_groundup = Image.open("inexture_logo.jpg")
 img_linkedin = Image.open("linkedin.png")
 img_github = Image.open("github.png")
 img_email = Image.open("email.png")
@@ -129,8 +128,6 @@ def txt4(a, b):
         st.markdown(f'<p style="font-size: 25px; color: red;"><code>{b}</code></p>', unsafe_allow_html=True)
 
 
-
-
 # Sidebar: If using streamlit_option_menu
 with st.sidebar:
     with st.container():
@@ -144,8 +141,8 @@ with st.sidebar:
 
     choose = option_menu(
         "Kunal Zaveri",
-        ["About Me", "Experience", "Technical Skills", "Education", "Projects", "Resume", "Contact"],
-        icons=['person fill', 'clock history', 'tools', 'book half', 'clipboard', 'paperclip', 'envelope'],
+        ["About Me", "Experience", "Technical Skills", "Education", "Projects", "Contact"],
+        icons=['person fill', 'clock history', 'tools', 'book half', 'clipboard', 'envelope'],
         menu_icon="mortarboard",
         default_index=0,
         styles={
@@ -194,11 +191,11 @@ elif choose == "Experience":
     # st.write("---")
     st.header("Experience")
     with st.container():
-        image_column, text_column = st.columns((2, 4))
+        image_column, text_column = st.columns((1, 4))
         with image_column:
             st.image(img_groundup, use_column_width='always')
         with text_column:
-            st.subheader("Associate Software Engineer(Python), [Inexture Solutions](https://www.inexture.com/)")
+            st.header("Associate Software Engineer(Python), [Inexture Solutions](https://www.inexture.com/)")
             st.write("*July 2022 to Present*")
             st.markdown("""
             - Designed, coded, and debugged a wide range of applications, including operations, reporting, data analysis, and web applications, using Python to ensure optimal performance and functionality.
@@ -221,7 +218,7 @@ elif choose == "Technical Skills":
     st.header("Technical Skills")
     txt3("Programming Languages", "`Python`, `SQL`")
     txt3("Web Frameworks", "`Django`, `DRF`, `Flask`")
-    txt3 ('Web Scrapping Frameworks', "`Scrapy`, `Selenium`, `BeautifulSoup`, `Playwright`")
+    txt3('Web Scrapping Frameworks', "`Scrapy`, `Selenium`, `BeautifulSoup`, `Playwright`")
     txt3("Data Visualization",
          "`ggplot2`, `matplotlib`, `seaborn`, `Plotly`,`Tableau`, `Power BI`, `Google Data Studio`")
     txt3("Database Systems",
@@ -328,21 +325,6 @@ elif choose == "Projects":
             st.write("*Technology Used:-*  Scrapy, Selenium, AWS, Spidermon")
 
 
-
-elif choose == "Resume":
-    resume_url = "https://drive.google.com/file/d/1-sTLi33kFAI4OSPCZumLV_Bw99_pzwHR/view?usp=sharing"
-    st.header("Resume")
-    st.write("*In case your current browser cannot display the PDF documents, do refer to the hyperlink below!*")
-
-    st.markdown(pdf_link(resume_url, "**Resume (1 page)**"), unsafe_allow_html=True)
-    show_pdf("KunalZaveri_resume.pdf")
-    with open("KunalZaveri_resume.pdf", "rb") as file:
-        btn = st.download_button(
-            label="Download Resume (1 page)",
-            data=file,
-            file_name="KunalZaveri_resume.pdf",
-            mime="application/pdf"
-        )
 
 elif choose == "Contact":
     # Create section for Contact
